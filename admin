@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم وقائمة الطلبات - جمعية فزعة</title>
+  <style>
+    :root {
+      --primary: #1b5e20;
+      --primary-dark: #0f3813;
+      --accent: #d97706;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --card-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .brand-header {
+      background-color: var(--primary-dark);
+      padding: 18px;
+      text-align: center;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .logo-img {
+      max-width: 100px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      border-top: 5px solid var(--primary);
+    }
+
+    .admin-login {
+      text-align: center;
+      max-width: 400px;
+      margin: 30px auto;
+    }
+
+    .form-group { margin-bottom: 16px; text-align: right; }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-excel {
+      background-color: #107c41;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .btn-excel:hover {
+      background-color: #0b5c30;
+    }
+
+    .btn-logout {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    .table-container { overflow-x: auto; margin-top: 15px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    th { background-color: #f1f5f9; color: #334155; }
+
+    .btn-wa-export {
+      background-color: #25d366;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الشعار في الأعلى بصيغة jpeg -->
+  <div class="brand-header">
+    <img src="logo.jpeg" alt="شعار جمعية فزعة بالزلفي" class="logo-img">
+  </div>
+
+  <div class="container">
+    
+    <!-- دخول الإدارة -->
+    <div id="adminAuth" class="card admin-login">
+      <h3>🔒 لوحة تحكم الإدارة</h3>
+      <p style="color: #64748b; font-size: 0.88rem;">أدخل رمز المرور للوصول إلى سجل الطلبات</p>
+      <div class="form-group">
+        <input type="password" id="adminPass" placeholder="رمز الدخول">
+      </div>
+      <button class="btn-submit" onclick="loginAdmin()">تسجيل الدخول</button>
+      <small id="authError" style="color: red; display: none; margin-top: 8px;">رمز الدخول غير صحيح!</small>
+    </div>
+
+    <!-- جدول الطلبات -->
+    <div id="adminDashboard" class="card" style="display: none;">
+      <div class="header-actions">
+        <h2>📋 سجل البلاغات والطلبات</h2>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-excel" onclick="exportTableToExcel('requestsTable', 'بلاغات_جمعية_فزعة')">
+            📊 تصدير إلى إكسل (Excel)
+          </button>
+          <button class="btn-logout" onclick="logoutAdmin()">تسجيل خروج</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table id="requestsTable">
+          <thead>
+            <tr>
+              <th>رقم البلاغ</th>
+              <th>الاسم الكامل</th>
+              <th>رقم التواصل</th>
+              <th>رقم الهوية</th>
+              <th>نوع المركبة</th>
+              <th>رقم اللوحة</th>
+              <th>نوع الخدمة</th>
+              <th>صورة اللوحة</th>
+              <th>صورة الحالة</th>
+              <th>رابط الموقع الجغرافي</th>
+              <th>الملاحظات</th>
+              <th>إجراء سريع</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#1001</td>
+              <td>سعود سعد</td>
+              <td>0539393646</td>
+              <td>1098765432</td>
+              <td>نيسان باترول 2020</td>
+              <td>أ ب ج 1234</td>
+              <td>إخراج مركبة عالقة</td>
+              <td>مرفقة ✅</td>
+              <td>مرفقة ✅</td>
+              <td><a href="https://maps.google.com/?q=26.29,44.80" target="_blank">🗺️ فتح Google Maps</a></td>
+              <td>نفود الزلفي القريب من المطل</td>
+              <td>
+                <button class="btn-wa-export" onclick="exportToWhatsApp('1001', 'سعود سعد', '0539393646', '1098765432', 'إخراج مركبة عالقة', 'نيسان باترول 2020', 'أ ب ج 1234', 'https://maps.google.com/?q=26.29,44.80', 'نفود الزلفي القريب من المطل')">
+                  💬 إرسال للميدان
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const ADMIN_CODE = '1234';
+    const ASSOCIATION_WHATSAPP = '966539393646';
+
+    function loginAdmin() {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === ADMIN_CODE) {
+        document.getElementById('adminAuth').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+      } else {
+        document.getElementById('authError').style.display = 'block';
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('adminAuth').style.display = 'block';
+      document.getElementById('adminPass').value = '';
+    }
+
+    // دالة تصدير الجدول لملف إكسل بكل سهولة مع دعم اللغة العربية
+    function exportTableToExcel(tableID, filename = '') {
+      const tableSelect = document.getElementById(tableID);
+      let tableHTML = tableSelect.outerHTML;
+
+      // إضافة BOM لدعم حروف اللغة العربية في Excel بدون أخطاء
+      const blob = new Blob(['\ufeff' + tableHTML], {
+        type: 'application/vnd.ms-excel;charset=utf-8;'
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename ? filename + '.xls' : 'export.xls';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function exportToWhatsApp(id, name, phone, idNum, service, vehicle, plate, loc, notes) {
+      const exportMsg = 
+`📌 *توجيه بلاغ ميداني - جمعية فزعة بالزلفي* (#${id})
+
+👤 *الاسم:* ${name}
+📞 *الجوال:* ${phone}
+🪪 *الهوية:* ${idNum}
+🛠️ *الخدمة المطلوبة:* ${service}
+🚘 *المركبة:* ${vehicle} (${plate})
+📷 *صورة اللوحة:* مرفقة بالطلب
+📸 *صورة الحالة:* مرفقة بالطلب
+📍 *رابط الموقع الجغرافي:* ${loc}
+📝 *ملاحظات الموقع:* ${notes || 'لا يوجد'}
+
+-----------------------
+*بيانات رسمية معتمدة للتنفيذ الميداني السريع*`;
+
+      window.open(`https://wa.me/${ASSOCIATION_WHATSAPP}?text=${encodeURIComponent(exportMsg)}`, '_blank');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقديم بلاغ طارئ - جمعية فزعة بالزلفي</title>
+  <style>
+    :root {
+      --primary: #1b5e20;
+      --primary-dark: #0f3813;
+      --accent: #d97706;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --card-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .brand-header {
+      background-color: var(--primary-dark);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .logo-img {
+      max-width: 110px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      border-top: 5px solid var(--primary);
+    }
+
+    .alert-box {
+      background-color: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-right: 4px solid var(--accent);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      color: #92400e;
+      line-height: 1.6;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; color: #334155; font-size: 0.92rem; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input[type="file"] {
+      background: #f8fafc;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.12);
+    }
+
+    .btn-gps {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .image-preview {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .required-star {
+      color: #dc2626;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الشعار في الأعلى بصيغة jpeg -->
+  <div class="brand-header">
+    <img src="logo.jpeg" alt="شعار جمعية فزعة بالزلفي" class="logo-img">
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2 style="text-align: center; color: var(--primary-dark); margin-top: 0;">🚨 تقديم بلاغ طارئ</h2>
+      <p style="text-align: center; color: #64748b; font-size: 0.9rem;">جمعية فزعة بالزلفي (نحن عونك في طريقك)</p>
+
+      <div class="alert-box">
+        ⚠️ <strong>تنبيه هام:</strong><br>
+        • هذه البيانات خاصة بالإدارة.<br>
+        • الفريق لا يتحمل الأضرار الناتجة في حال تقديم المساعدة.
+      </div>
+
+      <form id="emergencyForm">
+        <div class="form-group">
+          <label>الاسم الكامل <span class="required-star">*</span></label>
+          <input type="text" id="applicant_name" required placeholder="أدخل اسمك الكامل">
+        </div>
+
+        <div class="form-group">
+          <label>رقم التواصل <span class="required-star">*</span></label>
+          <input type="tel" id="phone" required placeholder="05xxxxxxxx">
+        </div>
+
+        <div class="form-group">
+          <label>رقم الهوية الوطنية / الإقامة <span class="required-star">*</span></label>
+          <input type="number" id="id_number" required placeholder="أدخل رقم الهوية">
+        </div>
+
+        <div class="form-group">
+          <label>نوع المركبة والموديل <span class="required-star">*</span></label>
+          <input type="text" id="vehicle_type" required placeholder="مثال: تويوتا هايلوكس 2021">
+        </div>
+
+        <div class="form-group">
+          <label>رقم اللوحة <span class="required-star">*</span></label>
+          <input type="text" id="plate_number" required placeholder="مثال: أ ب ج 1234">
+        </div>
+
+        <!-- خانة رفع صورة اللوحة (إلزامية) -->
+        <div class="form-group">
+          <label>📸 صورة لوحة المركبة <span class="required-star">*</span></label>
+          <input type="file" id="plate_image" accept="image/*" capture="environment" required onchange="handleFileSelect(this, 'platePreview')">
+          <div id="platePreview" class="image-preview"></div>
+        </div>
+
+        <!-- خانة رفع صورة توضح الحالة (إلزامية) -->
+        <div class="form-group">
+          <label>📸 صورة توضح الحالة / موقع العطل <span class="required-star">*</span></label>
+          <input type="file" id="status_image" accept="image/*" capture="environment" required onchange="handleFileSelect(this, 'statusPreview')">
+          <div id="statusPreview" class="image-preview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>نوع الخدمة المطلوبة <span class="required-star">*</span></label>
+          <select id="service_type" required>
+            <option value="إشتراك البطارية">إشتراك البطارية</option>
+            <option value="تزويد الوقود">تزويد الوقود</option>
+            <option value="نفخ الإطارات">نفخ الإطارات</option>
+            <option value="تبديل الإطار">تبديل الإطار</option>
+            <option value="إخراج المركبات العالقة">إخراج المركبات العالقة (رمال - طين)</option>
+            <option value="سحب المركبات">سحب المركبات</option>
+            <option value="فتح المركبات المقفلة">فتح المركبات المقفلة</option>
+            <option value="المساندة الميدانية">المساندة الميدانية</option>
+            <option value="العثور على التائه">العثور على التائه (بحث في البر)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>الموقع الجغرافي <span class="required-star">*</span></label>
+          <button type="button" class="btn-gps" onclick="getLocation()">📍 تحديد موقعي الحالي عبر الـ GPS</button>
+          <input type="hidden" id="location_url">
+          <small id="gpsStatus" style="color: #64748b; font-size: 0.85rem; display: block; margin-top: 6px;"></small>
+        </div>
+
+        <div class="form-group">
+          <label>وصف الموقع أو ملاحظات إضافية</label>
+          <textarea id="notes" rows="2" placeholder="وصف المكان أو أي معالم قريبة"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">إتمام الطلب والمتابعة للواتساب 💬</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const ASSOCIATION_WHATSAPP = '966539393646';
+    let userLocationUrl = '';
+    let hasPlateImg = false;
+    let hasStatusImg = false;
+
+    function handleFileSelect(input, previewId) {
+      const preview = document.getElementById(previewId);
+      if (input.files && input.files[0]) {
+        preview.innerText = `✅ تم رفع الصورة بنجاح: (${input.files[0].name})`;
+        if (previewId === 'platePreview') hasPlateImg = true;
+        if (previewId === 'statusPreview') hasStatusImg = true;
+      } else {
+        preview.innerText = '';
+        if (previewId === 'platePreview') hasPlateImg = false;
+        if (previewId === 'statusPreview') hasStatusImg = false;
+      }
+    }
+
+    function getLocation() {
+      const gpsStatus = document.getElementById('gpsStatus');
+      if (navigator.geolocation) {
+        gpsStatus.innerText = '⏳ جاري التقاط الموقع الجغرافي...';
+        gpsStatus.style.color = '#d97706';
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            userLocationUrl = `https://maps.google.com/?q=${lat},${lng}`;
+            document.getElementById('location_url').value = userLocationUrl;
+            
+            gpsStatus.innerHTML = `✅ تم توليد رابط الموقع بنجاح:<br><a href="${userLocationUrl}" target="_blank" style="color:#16a34a;">${userLocationUrl}</a>`;
+          },
+          (err) => {
+            gpsStatus.innerText = '❌ متعذر التقاط الموقع، يرجى تفعيل الـ GPS في جوالك أو كتابة الموقع في الوصف.';
+            gpsStatus.style.color = '#dc2626';
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
+      } else {
+        gpsStatus.innerText = '❌ المتصفح لا يدعم تحديد الموقع الجغرافي تلقائياً.';
+      }
+    }
+
+    document.getElementById('emergencyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const plateImgInput = document.getElementById('plate_image');
+      const statusImgInput = document.getElementById('status_image');
+
+      if (!plateImgInput.files.length || !statusImgInput.files.length) {
+        alert('⚠️ يرجى رفع صورة اللوحة وصورة الحالة لإتمام تقديم البلاغ.');
+        return;
+      }
+
+      const name = document.getElementById('applicant_name').value;
+      const phone = document.getElementById('phone').value;
+      const idNum = document.getElementById('id_number').value;
+      const vehicle = document.getElementById('vehicle_type').value;
+      const plate = document.getElementById('plate_number').value;
+      const service = document.getElementById('service_type').value;
+      const notes = document.getElementById('notes').value;
+
+      const message = 
+`🚨 *طلب فزعة طارئ جديد* 🚨
+
+👤 *الاسم:* ${name}
+📞 *الرقم:* ${phone}
+🪪 *الهوية:* ${idNum}
+🚘 *المركبة:* ${vehicle}
+🔢 *اللوحة:* ${plate}
+📷 *صورة اللوحة:* ✅ تم التقاطها (إلزامية)
+📸 *صورة الحالة:* ✅ تم التقاطها (إلزامية)
+🛠 *نوع الخدمة:* ${service}
+📍 *رابط الموقع الجغرافي:* ${userLocationUrl || 'لم يتم التقاط GPS (راجع الوصف)'}
+📝 *الملاحظات:* ${notes || 'لا يوجد'}
+
+-----------------------
+*تنبيه هذه البيانات خاصة بالإدارة*
+*والفريق لا يتحمل الاضرار الناتجة في حال تقديم المساعدة*`;
+
+      const whatsappUrl = `https://wa.me/${ASSOCIATION_WHATSAPP}?text=${encodeURIComponent(message)}`;
+      window.location.href = whatsappUrl;
+    });
+  </script>
+</body>
+</html>
